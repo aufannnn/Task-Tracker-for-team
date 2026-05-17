@@ -1,62 +1,183 @@
 ============================================================
-PEMBAGIAN TUGAS PROYEK TASK TRACKER (METODE SCRUM)
+  PEMBAGIAN TUGAS PROYEK TASK TRACKER (METODE SCRUM)
 ============================================================
-Kelompok: 7 | Teknik Komputer Undip
-Tim: 5 Orang (Fokus Full-Stack PHP Native)
+  Kelompok  : 7
+  Program   : Teknik Komputer — Universitas Diponegoro
+  Tim       : 5 Orang
+  Stack     : Full-Stack PHP Native + MySQL (XAMPP)
+  Sprint    : 2 Minggu per Siklus
 
-PENDEKATAN METODE SCRUM:
-Menggunakan iterasi pendek (Sprint) untuk menghasilkan fitur yang 
-berfungsi secara bertahap dengan pembagian peran yang jelas.
+============================================================
+  SPRINT BACKLOG — FILE TANGGUNG JAWAB PER ANGGOTA
+============================================================
 
 ------------------------------------------------------------
 1. SCRUM MASTER & CORE PHP DEVELOPER
-   Nama: Henning
-   Tanggung Jawab (Scrum Role: Scrum Master):
-   - Memastikan proses Scrum berjalan lancar dan menghilangkan hambatan tim.
-   - Mengatur arsitektur dasar PHP (config/database.php, auth.php).
-   - Menjaga konsistensi kode dan keamanan sistem (Session/Security).
-   - Memfasilitasi koordinasi teknis antar anggota tim.
+   Nama     : Henning
+   GitHub   : Hening24
+   Email    : kirigayamanda@gmail.com
+   Scrum Role: Scrum Master
+
+   Tanggung Jawab:
+   - Memimpin Sprint Planning, Daily Stand-up, dan Sprint Review.
+   - Menghilangkan hambatan (impediment) teknis yang dihadapi tim.
+   - Membangun fondasi arsitektur PHP:
+       > config/database.php  — koneksi PDO ke MySQL
+       > includes/auth.php    — sistem autentikasi & session PHP
+   - Mengelola keamanan aplikasi (session_start, CSRF, sanitasi input).
+   - Menjaga konsistensi standar kode PHP di seluruh proyek.
+   - Mengelola file routing utama:
+       > login.php, register.php, logout.php, choose_role.php
+       > generate_hash.php, .htaccess (proteksi direktori)
+
+   File Utama:
+   - config/database.php
+   - config/.htaccess
+   - includes/auth.php
+   - includes/.htaccess
+   - login.php
+   - register.php
+   - logout.php
+   - choose_role.php
+   - generate_hash.php
+   - .htaccess
 
 ------------------------------------------------------------
 2. PRODUCT OWNER & UI/UX DESIGNER
-   Nama: Rayhan
-   Tanggung Jawab (Scrum Role: Product Owner):
-   - Mengelola Product Backlog (daftar fitur yang harus dibuat).
-   - Menentukan prioritas fitur berdasarkan kebutuhan pengguna.
-   - Merancang desain interface utama dan layout (header, footer, CSS).
-   - Memvalidasi hasil pekerjaan tim apakah sudah sesuai target.
+   Nama     : Rayhan
+   GitHub   : mrayhang9o
+   Email    : mrayhang9@gmail.com
+   Scrum Role: Product Owner
+
+   Tanggung Jawab:
+   - Mengelola dan memprioritaskan Product Backlog.
+   - Menentukan definisi fitur berdasarkan kebutuhan pengguna.
+   - Merancang layout antarmuka aplikasi (header, footer, CSS global).
+   - Memvalidasi setiap hasil Sprint: apakah fitur sesuai target.
+   - Membuat komponen tampilan yang digunakan bersama tim:
+       > includes/header.php — navigasi & struktur atas halaman
+       > includes/footer.php — struktur bawah halaman
+       > assets/css/style.css — stylesheet global aplikasi
+   - Mengelola halaman awal dan halaman error:
+       > index.php, 404.php
+
+   File Utama:
+   - includes/header.php
+   - includes/footer.php
+   - assets/css/style.css
+   - index.php
+   - 404.php
 
 ------------------------------------------------------------
 3. DEVELOPMENT TEAM (BACKEND & DATABASE)
-   Nama: Alex
-   Tanggung Jawab (Scrum Role: Developer):
-   - Mengimplementasikan skema database MySQL (task_tracker_db.sql).
-   - Membangun logika PHP untuk pengolahan data (CRUD Tugas/Proyek).
-   - Membuat query SQL yang efisien untuk laporan dan dashboard.
-   - Menangani integrasi data antara server dan database.
+   Nama     : Alex (Ali)
+   GitHub   : Alex-afa
+   Email    : alexispratamabahar2006@gmail.com
+   Scrum Role: Developer — Backend & Database
+
+   Tanggung Jawab:
+   - Merancang dan mengimplementasikan skema database MySQL:
+       > task_tracker_db.sql — DDL tabel users, projects,
+         project_members, tasks, task_categories, task_category_map
+   - Membangun logika PHP untuk CRUD Tugas dan Proyek di sisi server.
+   - Menulis query SQL yang optimal untuk laporan dan dashboard.
+   - Membangun halaman dashboard utama dengan data agregat:
+       > dashboard.php — ringkasan proyek & statistik tugas
+   - Menyediakan fungsi helper PHP yang dipakai lintas halaman:
+       > includes/helpers.php — utilitas formatting, sanitasi, dsb.
+   - Menangani integrasi data antara PHP dan MySQL.
+
+   File Utama:
+   - task_tracker_db.sql
+   - dashboard.php
+   - includes/helpers.php
 
 ------------------------------------------------------------
-4. DEVELOPMENT TEAM (FRONTEND & INTERACTION)
-   Nama: Aufan
-   Tanggung Jawab (Scrum Role: Developer):
-   - Mengembangkan tampilan interaktif pada halaman Member.
-   - Implementasi logika frontend menggunakan JavaScript (validasi/modal).
-   - Menghubungkan tampilan HTML dengan proses PHP di backend.
-   - Memastikan navigasi user interface berjalan intuitif.
+4. DEVELOPMENT TEAM (FRONTEND MEMBER MODULE)
+   Nama     : Aufan
+   GitHub   : aufannnn
+   Email    : aufandamays4@gmail.com
+   Scrum Role: Developer — Frontend & Member Pages
+
+   Tanggung Jawab:
+   - Mengembangkan modul halaman khusus Member menggunakan PHP:
+       > pages/member/projects.php    — daftar proyek yang diikuti
+       > pages/member/project_view.php — detail & tugas dalam proyek
+       > pages/member/my_tasks.php    — daftar tugas personal
+   - Membangun form HTML yang terhubung ke proses PHP di backend
+     (submit task, update status tugas via POST).
+   - Memastikan alur navigasi antar halaman Member berjalan intuitif.
+   - Implementasi validasi input di sisi server menggunakan PHP.
+   - Berkoordinasi dengan Alex untuk integrasi query data Member.
+
+   File Utama:
+   - pages/member/projects.php
+   - pages/member/project_view.php
+   - pages/member/my_tasks.php
 
 ------------------------------------------------------------
 5. DEVELOPMENT TEAM (QA & ADMIN MODULE)
-   Nama: Hafiyan
-   Tanggung Jawab (Scrum Role: Developer/Tester):
-   - Mengembangkan modul manajemen pada halaman Admin.
-   - Melakukan pengujian (Testing) fitur untuk mencari bug sebelum rilis.
-   - Mendokumentasikan perubahan kode dan hasil Sprint.
-   - Membantu perbaikan bug visual dan fungsional pada PHP.
+   Nama     : Hafiyan
+   GitHub   : hafiyyandimas
+   Email    : hafiyyan8@gmail.com
+   Scrum Role: Developer — Admin Module & QA/Tester
 
-------------------------------------------------------------
-SCRUM ARTIFACTS & EVENTS:
-1. Sprint: Periode kerja (misal 1-2 minggu) untuk menyelesaikan tugas.
-2. Sprint Planning: Menentukan tugas apa saja yang akan dikerjakan.
-3. Daily Stand-up: Pertemuan singkat harian untuk update progres.
-4. Sprint Review: Demo hasil fitur PHP yang sudah selesai.
+   Tanggung Jawab:
+   - Mengembangkan modul manajemen Admin menggunakan PHP:
+       > pages/admin/projects.php      — kelola semua proyek
+       > pages/admin/project_detail.php — detail & manajemen tugas
+       > pages/admin/edit_project.php  — form edit proyek
+       > pages/admin/members.php       — manajemen anggota proyek
+   - Melakukan pengujian (Testing) fitur PHP sebelum Sprint Review:
+       > Uji fungsional CRUD, validasi form, dan alur session.
+       > Mencatat dan melaporkan bug ke Scrum Master (Henning).
+   - Mendokumentasikan perubahan kode dan hasil setiap Sprint.
+   - Membantu perbaikan bug PHP fungsional dan tampilan HTML.
+   - Memastikan akses Admin dan Member terlindungi oleh auth.php.
+
+   File Utama:
+   - pages/admin/projects.php
+   - pages/admin/project_detail.php
+   - pages/admin/edit_project.php
+   - pages/admin/members.php
+   - pembagian_tugas_scrum.txt  (dokumentasi)
+   - kredensial.txt             (dokumentasi)
+
+============================================================
+  SCRUM ARTIFACTS & EVENTS
+============================================================
+
+ARTIFACTS:
+  1. Product Backlog  : Daftar fitur prioritas (dikelola Rayhan/PO).
+  2. Sprint Backlog   : Tugas yang dipilih untuk dikerjakan Sprint ini.
+  3. Increment        : Aplikasi PHP yang berfungsi di akhir setiap Sprint.
+
+EVENTS:
+  1. Sprint Planning  : Menentukan fitur PHP yang akan dikerjakan.
+  2. Daily Stand-up   : Update harian: kemarin, hari ini, hambatan.
+  3. Sprint Review    : Demo fitur PHP yang telah selesai ke PO.
+  4. Retrospective    : Evaluasi proses kerja tim untuk Sprint berikutnya.
+
+DEFINITION OF DONE (DoD):
+  - Kode PHP sudah berjalan tanpa error di XAMPP (localhost).
+  - Fitur sudah diuji oleh Hafiyan (QA) dan lulus uji fungsional.
+  - Kode sudah di-commit dengan pesan Conventional Commits ke GitHub.
+  - Tidak ada data sensitif (password, token) dalam kode yang di-push.
+
+============================================================
+  KONVENSI COMMIT (Conventional Commits)
+============================================================
+  feat(scope)  : Fitur baru PHP yang ditambahkan
+  fix(scope)   : Perbaikan bug pada PHP/SQL
+  docs(scope)  : Perubahan dokumentasi atau .txt
+  style(scope) : Perubahan CSS / tampilan tanpa logika
+  refactor     : Refaktor kode PHP tanpa mengubah fungsi
+  chore        : Pemeliharaan (konfigurasi, .htaccess, dsb.)
+
+  Contoh:
+  feat(member): add project listing page with PHP session check
+  fix(auth): resolve redirect loop on login.php
+  feat(db): add foreign key constraint to task_category_map
+  docs(admin): update sprint backlog and task assignment
+
 ============================================================
