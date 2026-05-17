@@ -1,0 +1,62 @@
+============================================================
+PEMBAGIAN TUGAS PROYEK TASK TRACKER (METODE SCRUM)
+============================================================
+Kelompok: 7 | Teknik Komputer Undip
+Tim: 5 Orang (Fokus Full-Stack PHP Native)
+
+PENDEKATAN METODE SCRUM:
+Menggunakan iterasi pendek (Sprint) untuk menghasilkan fitur yang 
+berfungsi secara bertahap dengan pembagian peran yang jelas.
+
+------------------------------------------------------------
+1. SCRUM MASTER & CORE PHP DEVELOPER
+   Nama: Henning
+   Tanggung Jawab (Scrum Role: Scrum Master):
+   - Memastikan proses Scrum berjalan lancar dan menghilangkan hambatan tim.
+   - Mengatur arsitektur dasar PHP (config/database.php, auth.php).
+   - Menjaga konsistensi kode dan keamanan sistem (Session/Security).
+   - Memfasilitasi koordinasi teknis antar anggota tim.
+
+------------------------------------------------------------
+2. PRODUCT OWNER & UI/UX DESIGNER
+   Nama: Rayhan
+   Tanggung Jawab (Scrum Role: Product Owner):
+   - Mengelola Product Backlog (daftar fitur yang harus dibuat).
+   - Menentukan prioritas fitur berdasarkan kebutuhan pengguna.
+   - Merancang desain interface utama dan layout (header, footer, CSS).
+   - Memvalidasi hasil pekerjaan tim apakah sudah sesuai target.
+
+------------------------------------------------------------
+3. DEVELOPMENT TEAM (BACKEND & DATABASE)
+   Nama: Alex
+   Tanggung Jawab (Scrum Role: Developer):
+   - Mengimplementasikan skema database MySQL (task_tracker_db.sql).
+   - Membangun logika PHP untuk pengolahan data (CRUD Tugas/Proyek).
+   - Membuat query SQL yang efisien untuk laporan dan dashboard.
+   - Menangani integrasi data antara server dan database.
+
+------------------------------------------------------------
+4. DEVELOPMENT TEAM (FRONTEND & INTERACTION)
+   Nama: Aufan
+   Tanggung Jawab (Scrum Role: Developer):
+   - Mengembangkan tampilan interaktif pada halaman Member.
+   - Implementasi logika frontend menggunakan JavaScript (validasi/modal).
+   - Menghubungkan tampilan HTML dengan proses PHP di backend.
+   - Memastikan navigasi user interface berjalan intuitif.
+
+------------------------------------------------------------
+5. DEVELOPMENT TEAM (QA & ADMIN MODULE)
+   Nama: Hafiyan
+   Tanggung Jawab (Scrum Role: Developer/Tester):
+   - Mengembangkan modul manajemen pada halaman Admin.
+   - Melakukan pengujian (Testing) fitur untuk mencari bug sebelum rilis.
+   - Mendokumentasikan perubahan kode dan hasil Sprint.
+   - Membantu perbaikan bug visual dan fungsional pada PHP.
+
+------------------------------------------------------------
+SCRUM ARTIFACTS & EVENTS:
+1. Sprint: Periode kerja (misal 1-2 minggu) untuk menyelesaikan tugas.
+2. Sprint Planning: Menentukan tugas apa saja yang akan dikerjakan.
+3. Daily Stand-up: Pertemuan singkat harian untuk update progres.
+4. Sprint Review: Demo hasil fitur PHP yang sudah selesai.
+============================================================
