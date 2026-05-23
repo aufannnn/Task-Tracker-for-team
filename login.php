@@ -28,150 +28,133 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <title>Login — Task Tracker</title>
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
   <style>
-    body { margin: 0; background: #fff; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 45%, #3b82f6 100%);
+      font-family: system-ui, -apple-system, sans-serif;
+    }
 
+    /* decorative blobs on body */
+    body::before {
+      content: '';
+      position: fixed; top: -200px; right: -200px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      pointer-events: none; z-index: 0;
+    }
+    body::after {
+      content: '';
+      position: fixed; bottom: -150px; left: -150px;
+      width: 450px; height: 450px; border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── LAYOUT ─────────────────────────────────── */
     .auth-split {
       min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    /* ── LEFT PANEL ─────────────────────────────────── */
-    .auth-left-panel {
-      background: linear-gradient(160deg, #1e3a8a 0%, #1d4ed8 55%, #3b82f6 100%);
-      display: flex; flex-direction: column;
-      justify-content: space-between;
-      padding: 48px;
-      position: relative; overflow: hidden;
-    }
-
-    /* decorative circles */
-    .auth-left-panel::before {
-      content: '';
-      position: absolute; top: -120px; right: -120px;
-      width: 420px; height: 420px; border-radius: 50%;
-      background: rgba(255,255,255,0.05);
-      pointer-events: none;
-    }
-    .auth-left-panel::after {
-      content: '';
-      position: absolute; bottom: -80px; left: -80px;
-      width: 300px; height: 300px; border-radius: 50%;
-      background: rgba(255,255,255,0.05);
-      pointer-events: none;
-    }
-
-    .left-top { position: relative; z-index: 1; }
-    .left-logo {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 56px;
-    }
-    .left-logo-icon {
-      width: 38px; height: 38px; border-radius: 9px;
-      background: rgba(255,255,255,0.2);
-      border: 1px solid rgba(255,255,255,0.3);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 17px; color: #fff;
-    }
-    .left-logo-text { font-size: 17px; font-weight: 700; color: #fff; }
-
-    .left-headline h1 {
-      font-size: 34px; font-weight: 800; color: #fff;
-      line-height: 1.2; margin-bottom: 14px;
-      letter-spacing: -0.5px;
-    }
-    .left-headline p {
-      font-size: 15px; color: rgba(255,255,255,0.65);
-      line-height: 1.65; max-width: 340px;
-    }
-
-    .left-features {
-      margin-top: 44px;
-      display: flex; flex-direction: column; gap: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
       position: relative; z-index: 1;
     }
-    .left-feature {
-      display: flex; align-items: flex-start; gap: 12px;
-    }
-    .left-feature-icon {
-      width: 34px; height: 34px; border-radius: 8px;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.18);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 15px; flex-shrink: 0; margin-top: 1px;
-    }
-    .left-feature-text strong {
-      display: block; font-size: 13px; font-weight: 600;
-      color: rgba(255,255,255,0.92); margin-bottom: 2px;
-    }
-    .left-feature-text span {
-      font-size: 12px; color: rgba(255,255,255,0.5);
-    }
 
-    .left-bottom {
-      position: relative; z-index: 1;
-      font-size: 12px; color: rgba(255,255,255,0.35);
-    }
+    /* LEFT PANEL — hidden, card is centered */
+    .auth-left-panel { display: none; }
 
-    /* ── RIGHT PANEL ─────────────────────────────────── */
+    /* ── CARD ─────────────────────────────────── */
     .auth-right-panel {
       background: #fff;
-      display: flex; align-items: center; justify-content: center;
-      padding: 48px;
+      border-radius: 20px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.22), 0 4px 16px rgba(0,0,0,0.08);
+      padding: 48px 44px 44px;
+      width: 100%;
+      max-width: 420px;
+      animation: slideUp 0.4s cubic-bezier(0.16,1,0.3,1) both;
     }
-    .auth-form-box { width: 100%; max-width: 360px; }
 
-    .form-heading { margin-bottom: 32px; }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .auth-form-box { width: 100%; }
+
+    /* logo pill at top of card */
+    .auth-right-panel::before {
+      content: '◈  TaskTracker';
+      display: flex; align-items: center;
+      font-size: 13px; font-weight: 700;
+      color: #2563eb; letter-spacing: 0.3px;
+      margin-bottom: 28px;
+      padding: 6px 14px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 999px;
+      width: fit-content;
+    }
+
+    /* ── HEADING ─────────────────────────────────── */
+    .form-heading { margin-bottom: 28px; }
     .form-heading h2 {
-      font-size: 24px; font-weight: 700;
+      font-size: 26px; font-weight: 800;
       color: #0f172a; margin-bottom: 6px;
+      letter-spacing: -0.4px; line-height: 1.2;
     }
-    .form-heading p { font-size: 14px; color: #64748b; }
+    .form-heading p { font-size: 14px; color: #64748b; line-height: 1.5; }
 
+    /* ── FORM FIELDS ─────────────────────────────────── */
     .form-group-login { margin-bottom: 18px; }
     .form-label-login {
-      display: block; font-size: 13px; font-weight: 500;
-      color: #334155; margin-bottom: 6px;
+      display: block; font-size: 13px; font-weight: 600;
+      color: #334155; margin-bottom: 7px; letter-spacing: 0.1px;
     }
     .form-input-login {
-      width: 100%; padding: 10px 14px;
-      border: 1.5px solid #e2eaf8;
-      border-radius: 8px; font-size: 14px;
+      width: 100%; padding: 11px 14px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px; font-size: 14px;
       font-family: inherit; color: #0f172a;
       background: #f8faff; outline: none;
-      transition: all 0.15s ease;
+      transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
       box-sizing: border-box;
     }
     .form-input-login:focus {
       border-color: #2563eb;
       background: #fff;
-      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+      box-shadow: 0 0 0 4px rgba(37,99,235,0.1);
     }
-    .form-input-login::placeholder { color: #94a3b8; }
+    .form-input-login::placeholder { color: #b0bec5; }
 
+    /* ── BUTTON ─────────────────────────────────── */
     .login-submit {
-      width: 100%; padding: 11px;
-      background: linear-gradient(135deg, #1d4ed8, #2563eb);
-      color: #fff; font-size: 15px; font-weight: 600;
-      border: none; border-radius: 8px; cursor: pointer;
-      font-family: inherit; transition: all 0.15s ease;
-      box-shadow: 0 2px 10px rgba(37,99,235,0.3);
-      margin-top: 6px;
+      width: 100%; padding: 12px;
+      background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+      color: #fff; font-size: 15px; font-weight: 700;
+      border: none; border-radius: 10px; cursor: pointer;
+      font-family: inherit; letter-spacing: 0.2px;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+      margin-top: 8px;
     }
     .login-submit:hover {
-      background: linear-gradient(135deg, #1e40af, #1d4ed8);
-      box-shadow: 0 4px 16px rgba(37,99,235,0.4);
+      background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+      box-shadow: 0 6px 20px rgba(37,99,235,0.45);
       transform: translateY(-1px);
     }
-    .login-submit:active { transform: translateY(0); }
+    .login-submit:active { transform: translateY(0); box-shadow: 0 2px 8px rgba(37,99,235,0.3); }
 
+    /* ── ERROR ─────────────────────────────────── */
     .login-error-box {
-      background: #fef2f2; border: 1px solid #fecaca;
-      color: #991b1b; border-radius: 8px;
-      padding: 10px 13px; font-size: 13px;
-      margin-bottom: 20px; line-height: 1.5;
+      background: #fef2f2; border: 1.5px solid #fecaca;
+      color: #991b1b; border-radius: 10px;
+      padding: 11px 14px; font-size: 13px;
+      margin-bottom: 20px; line-height: 1.55;
+      display: flex; align-items: flex-start; gap: 8px;
     }
 
+    /* ── DIVIDER ─────────────────────────────────── */
     .login-divider {
       display: flex; align-items: center; gap: 12px;
       margin: 22px 0; color: #cbd5e1; font-size: 12px;
@@ -180,19 +163,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       content: ''; flex: 1; height: 1px; background: #e2e8f0;
     }
 
+    /* ── REGISTER LINK ─────────────────────────────────── */
     .login-register-link {
       text-align: center; font-size: 13px; color: #64748b;
+      margin-top: 20px; padding-top: 20px;
+      border-top: 1px solid #f1f5f9;
     }
     .login-register-link a {
-      color: #2563eb; font-weight: 500; text-decoration: none;
+      color: #2563eb; font-weight: 600; text-decoration: none;
     }
     .login-register-link a:hover { text-decoration: underline; }
 
-    /* responsive */
-    @media (max-width: 900px) {
-      .auth-split { grid-template-columns: 1fr; }
-      .auth-left-panel { display: none; }
-      .auth-right-panel { padding: 32px 24px; min-height: 100vh; }
+    /* ── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 480px) {
+      .auth-right-panel { padding: 36px 24px 32px; border-radius: 16px; }
     }
   </style>
 </head>
