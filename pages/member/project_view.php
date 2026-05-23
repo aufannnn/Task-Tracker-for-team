@@ -67,6 +67,62 @@ $pageTitle = h($project['name']);
 require_once __DIR__ . '/../../includes/header.php';
 ?>
 
+<style>
+.kanban-pager {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.kanban-pager-btn {
+  min-width: 28px;
+  height: 28px;
+  padding: 0 6px;
+  border: 1.5px solid var(--border);
+  background: var(--bg2);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--text-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  line-height: 1;
+}
+.kanban-pager-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-light);
+}
+.kanban-pager-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 700;
+}
+.kanban-pager-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.kanban-pager-ellipsis {
+  font-size: 13px;
+  color: var(--muted);
+  padding: 0 2px;
+  line-height: 28px;
+}
+.kanban-pager-info {
+  font-size: 11px;
+  color: var(--muted);
+  margin-left: 6px;
+  white-space: nowrap;
+}
+</style>
+
 <div class="page-header">
   <div>
     <div style="margin-bottom:4px">
@@ -223,5 +279,93 @@ require_once __DIR__ . '/../../includes/header.php';
   </div>
 </div>
 </div>
+
+<script>
+// ── Kanban Pagination ─────────────────────────────────────────
+(function () {
+  const PER_PAGE = 10;
+
+  function buildPager(cards, col) {
+    if (cards.length <= PER_PAGE) return;
+
+    let current = 1;
+    const total = Math.ceil(cards.length / PER_PAGE);
+
+    const pager = document.createElement('div');
+    pager.className = 'kanban-pager';
+    col.appendChild(pager);
+
+    function pageRange(cur, tot) {
+      if (tot <= 7) return Array.from({length: tot}, (_, i) => i + 1);
+      const pages = [1];
+      if (cur > 3) pages.push('…');
+      for (let i = Math.max(2, cur - 1); i <= Math.min(tot - 1, cur + 1); i++) pages.push(i);
+      if (cur < tot - 2) pages.push('…');
+      pages.push(tot);
+      return pages;
+    }
+
+    function render(page) {
+      current = page;
+      const start = (page - 1) * PER_PAGE;
+      const end   = page * PER_PAGE;
+      cards.forEach(function (c, i) {
+        c.style.display = (i >= start && i < end) ? '' : 'none';
+      });
+
+      pager.innerHTML = '';
+
+      // Prev
+      const prev = document.createElement('button');
+      prev.className = 'kanban-pager-btn';
+      prev.textContent = '‹';
+      prev.disabled = page === 1;
+      prev.onclick = function () { render(current - 1); };
+      pager.appendChild(prev);
+
+      // Page numbers
+      pageRange(page, total).forEach(function (p) {
+        if (p === '…') {
+          const el = document.createElement('span');
+          el.className = 'kanban-pager-ellipsis';
+          el.textContent = '…';
+          pager.appendChild(el);
+        } else {
+          const btn = document.createElement('button');
+          btn.className = 'kanban-pager-btn' + (p === page ? ' active' : '');
+          btn.textContent = p;
+          btn.onclick = (function (pg) { return function () { render(pg); }; })(p);
+          pager.appendChild(btn);
+        }
+      });
+
+      // Next
+      const next = document.createElement('button');
+      next.className = 'kanban-pager-btn';
+      next.textContent = '›';
+      next.disabled = page === total;
+      next.onclick = function () { render(current + 1); };
+      pager.appendChild(next);
+
+      // Info
+      const info = document.createElement('span');
+      info.className = 'kanban-pager-info';
+      const s = (page - 1) * PER_PAGE + 1;
+      const e = Math.min(page * PER_PAGE, cards.length);
+      info.textContent = s + '–' + e + ' dari ' + cards.length;
+      pager.appendChild(info);
+    }
+
+    render(1);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.kanban-col').forEach(function (col) {
+      const cards = Array.from(col.querySelectorAll('.task-card'));
+      buildPager(cards, col);
+    });
+  });
+})();
+</script>
 
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>
